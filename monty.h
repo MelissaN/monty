@@ -1,5 +1,5 @@
-ifndef MONTY_H
-define MONTY_H
+#ifndef MONTY_H
+#define MONTY_H
 
 /* data structures */
 
@@ -35,6 +35,13 @@ typedef struct instruction_s
 
 /* function prototypes */
 
-Coming soon...
+void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
+void push(stack_t **h, unsigned int n);
+void pop(stack_t **h, unsigned int n);
+void pint(stack_t **h, unsigned int n);
+void pall(stack_t **h, unsigned int n);
+void swap(stack_t **h, unsigned int n);
+void nop(stack_t **h, unsigned int n);
+void pint(stack_t **h, unsigned int n);
 
-endif MONTY_H
+#endif MONTY_H
