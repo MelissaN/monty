@@ -5,31 +5,32 @@
  * @line_number: bytecode line number
  * @n: integer
  */
-void push(stack_t **h, unsigned int line_number, int n)
+void push(stack_t **h, unsigned int line_number, const char *n)
 {
 	if (!h)
 		return;
-	if (!isdigit(n))
+//	printf("%d\n", atoi(n));
+//	if (isdigit(n))
+//	{
+//		printf("L%u: usage: push integer\n", line_number);
+//		free_dlist(h);
+//		exit(EXIT_FAILURE);
+//	}
+//	else
+//	{
+	if (add_end_node(h, atoi(n)) == -1)
 	{
-		printf("L%u: usage: push integer\n", line_number);
 		free_dlist(h);
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		if (add_end_node(h, atoi(n)) == -1)
-		{
-			free_dlist(h);
-			exit(EXIT_FAILURE);
-		}
-	}
+//	}
 }
 /**
  * pop - removes node at end of dlinkedlist
  * @h: head of linked list (node at the bottom of stack)
  * @line_number: bytecode line number
  */
-void pop(stack_t **h, unsigned int line_number):
+void pop(stack_t **h, unsigned int line_number)
 {
 	if (h == NULL || *h == NULL)
 	{

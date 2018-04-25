@@ -11,7 +11,7 @@ void pall(stack_t **h, unsigned int line_number)
 
 	/* traverse to top of stack */
 	while ((*h)->next != NULL)
-		*h = h->next;
+		*h = (*h)->next;
 	while ((*h)->prev != NULL)
 	{
 		printf("%d\n", (*h)->n);
@@ -47,7 +47,7 @@ void pint(stack_t **h, unsigned int line_number)
  */
 void nop(stack_t **h, unsigned int line_number)
 {
-	void(h);
-	void(line_number);
+	(void) h;
+	(void) line_number;
 	return;
 }

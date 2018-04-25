@@ -13,7 +13,7 @@ int add_end_node(stack_t **h, int n)
 		return (-1);
 
 	/* malloc and set new node data */
-	new = malloc(sizeof(struct stack_t));
+	new = malloc(sizeof(struct stack_s));
 	if (!new)
 	{
 		printf("Error: malloc failed");
@@ -61,22 +61,21 @@ void delete_end_node(stack_t **h)
 		del->prev->next = NULL;
 		free(del);
 	}
-	return (0);
 }
 /**
  * free_dlist - frees a doubly linked list with only int data, no strings
  * @h: pointer to head of list
  */
-void free_dlist(stack_t *h)
+void free_dlist(stack_t **h)
 {
 	/* return if empty list */
 	if (!h)
 		return;
 
-	while (h && h->next)
+	while (*h && (*h)->next)
 	{
-		h = h->next;
-		free(h->prev);
+		*h = (*h)->next;
+		free((*h)->prev);
 	}
-	free(h);
+	free(*h);
 }

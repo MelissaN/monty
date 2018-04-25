@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <ctype.h>
 
 /* data structures */
 
@@ -39,7 +40,7 @@ typedef struct instruction_s
 
 /* opcodes related prototypes */
 void (*get_op_func(char *token1))(stack_t **stack, unsigned int line_number);
-void push(stack_t **h, unsigned int line_number, int n);
+void push(stack_t **h, unsigned int line_number, const char *n);
 void pop(stack_t **h, unsigned int line_number);
 void pint(stack_t **h, unsigned int line_number);
 void pall(stack_t **h, unsigned int line_number);
@@ -50,7 +51,7 @@ void add(stack_t **h, unsigned int line_number);
 /* doubly linked list related prototypes */
 int add_end_node(stack_t **h, int n);
 void delete_end_node(stack_t **h);
-void free_dlist(stack_t *h);
+void free_dlist(stack_t **h);
 
 char *token_line(stack_t **h, int n);
 

@@ -8,9 +8,11 @@
 int main(int argc, char *argv[])
 {
 	int fd, i, ispush = 0;
+	unsigned int line = 1;
 	ssize_t n_read, n_wrote;
 	char *buffer;
 	char *token;
+	stack_t *h = NULL;
 
 	if (argc != 2)
 	{
@@ -36,22 +38,14 @@ int main(int argc, char *argv[])
 		close (fd);
 		exit(EXIT_FAILURE);
 	}
-// 	n_wrote = write(STDOUT_FILENO, buffer, n_read);
-// 	if (n_wrote == -1)
-// 	{
-// 		free(buffer);
-// 		close(fd);
-// 		exit(EXIT_FAILURE);
-// 	}
-//
-
 	token = strtok(buffer, "\n\t\a\r ;:");
 	while (token != NULL)
 	{
 
 		if (ispush == 1)
 		{
-			get_op_func(
+//			printf("tok is %d\n", token);
+			push(&h, line, token);
 		}
 		if (strcmp(token, "push") == 0)
 		{
@@ -61,17 +55,11 @@ int main(int argc, char *argv[])
 			i++;
 			continue;
 		}
-
-
-
-
-
-
-
-
-
+		line++;
 		token = strtok(NULL, "\n\t\a\r ;:");
 		i++;
 	}
 	close(fd);
+	printf("printing linked list\n");
+	pall(&h, 0);
 }
