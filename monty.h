@@ -39,7 +39,7 @@ typedef struct instruction_s
 
 /* opcodes related prototypes */
 void (*get_op_func(char *token1))(stack_t **stack, unsigned int line_number);
-void push(stack_t **h, unsigned int line_number);
+void push(stack_t **h, unsigned int line_number, int n);
 void pop(stack_t **h, unsigned int line_number);
 void pint(stack_t **h, unsigned int line_number);
 void pall(stack_t **h, unsigned int line_number);
