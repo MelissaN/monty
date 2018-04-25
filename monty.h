@@ -37,15 +37,19 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/* function prototypes */
-
+/* opcodes related prototypes */
 void (*get_op_func(char *token1))(stack_t **stack, unsigned int line_number);
-void push(stack_t **h, unsigned int n);
-void pop(stack_t **h, unsigned int n);
-void pint(stack_t **h, unsigned int n);
-void pall(stack_t **h, unsigned int n);
-void swap(stack_t **h, unsigned int n);
-void nop(stack_t **h, unsigned int n);
-void add(stack_t **h, unsigned int n);
+void push(stack_t **h, unsigned int line_number);
+void pop(stack_t **h, unsigned int line_number);
+void pint(stack_t **h, unsigned int line_number);
+void pall(stack_t **h, unsigned int line_number);
+void swap(stack_t **h, unsigned int line_number);
+void nop(stack_t **h, unsigned int line_number);
+void add(stack_t **h, unsigned int line_number);
+
+/* doubly linked list related prototypes */
+int add_end_node(stack_t **h, int n);
+void delete_end_node(stack_t **h);
+void free_dlist(stack_t *h);
 
 #endif MONTY_H
