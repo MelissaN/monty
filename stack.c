@@ -3,12 +3,13 @@
  * push - adds node to the end of dlinkedlist
  * @h: head of linked list (node at the bottom of stack)
  * @line_number: bytecode line number
+ * @n: integer
  */
-void push(stack_t **h, unsigned int line_number)
+void push(stack_t **h, unsigned int line_number, int n)
 {
 	if (!h)
 		return;
-	if (/*int is not an integer or there's no argument to push*/)
+	if (!isdigit(n))
 	{
 		printf("L%u: usage: push integer\n", line_number);
 		free_dlist(h);
@@ -16,7 +17,7 @@ void push(stack_t **h, unsigned int line_number)
 	}
 	else
 	{
-		if (add_end_node(h, atoi(/*int token*/)) == -1)
+		if (add_end_node(h, atoi(n)) == -1)
 		{
 			free_dlist(h);
 			exit(EXIT_FAILURE);
