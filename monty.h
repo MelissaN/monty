@@ -52,4 +52,4 @@ int add_end_node(stack_t **h, int n);
 void delete_end_node(stack_t **h);
 void free_dlist(stack_t *h);
 
-#endif MONTY_H
+#endif
