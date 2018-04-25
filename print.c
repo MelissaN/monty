@@ -1,32 +1,53 @@
 #include "monty.h"
 /**
- * pall - print all stacks
- * @h: node at the top of stack
- * @n: node number
+ * pall - print all nodes in stack
+ * @h: head of list (node at the bottom of stack)
+ * @line_number: bytecode line number
  */
-void pall(stack_t **h, unsigned int n)
+void pall(stack_t **h, unsigned int line_number)
 {
 	if (!h || !*h)
 		return;
-	n = (*h)->n;
-	while (h)
+
+	/* traverse to top of stack */
+	while ((*h)->next != NULL)
+		*h = h->next;
+	while ((*h)->prev != NULL)
 	{
-		printf("%d\n", n);
+		printf("%d\n", (*h)->n);
 		*h = (*h)->prev;
 	}
+	printf("%d\n", (*h)->n);
 }
 /**
- * pint - print top stack
- * @h: node at the top of the stack
- * @n: node number
+ * pint - print top node in stack
+ * @h: head of list (node at the bottom of stack)
+ * @line_number: bytecode line number
  */
-void pint(stack_t **h, unsigned int n)
+void pint(stack_t **h, unsigned int line_number)
 {
-	n = (*h)->n;
+	stack_t *last = NULL;
+
 	if (!h || !*h)
 	{
-		printf("L%d: can't pint, stack empty\n", n);
+		printf("L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", n);
+
+	/* traverse to top of stack */
+	last = *h;
+	while (last->next != NULL)
+		last = last->next;
+	printf("%d\n", last->n);
+}
+/**
+ * nop - do nothing
+ * @h: head of list (node at the bottom of stack)
+ * @line_number: bytecode line number
+ */
+void nop(stack_t **h, unsigned int line_number)
+{
+	void(h);
+	void(line_number);
+	return;
 }
