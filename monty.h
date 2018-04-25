@@ -46,6 +46,6 @@ void pint(stack_t **h, unsigned int n);
 void pall(stack_t **h, unsigned int n);
 void swap(stack_t **h, unsigned int n);
 void nop(stack_t **h, unsigned int n);
-void pint(stack_t **h, unsigned int n);
+void add(stack_t **h, unsigned int n);
 
 #endif MONTY_H
