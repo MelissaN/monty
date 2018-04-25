@@ -52,4 +52,5 @@ int add_end_node(stack_t **h, int n);
 void delete_end_node(stack_t **h);
 void free_dlist(stack_t *h);
 
+char *token_line(stack_t **h, int n);
 #endif MONTY_H
