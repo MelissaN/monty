@@ -9,21 +9,20 @@ void push(stack_t **h, unsigned int line_number, const char *n)
 {
 	if (!h)
 		return;
-//	printf("%d\n", atoi(n));
-//	if (isdigit(n))
-//	{
-//		printf("L%u: usage: push integer\n", line_number);
-//		free_dlist(h);
-//		exit(EXIT_FAILURE);
-//	}
-//	else
-//	{
-	if (add_end_node(h, atoi(n)) == -1)
-	{
-		free_dlist(h);
-		exit(EXIT_FAILURE);
+  	if (isdigit(atoi(n)) != 0 || (atoi(n) == 0 && *n != '0'))
+  	{
+  		printf("L%u: usage: push integer\n", line_number);
+  		free_dlist(h);
+  		exit(EXIT_FAILURE);
+  	}
+  	else
+ 	{
+		if (add_end_node(h, atoi(n)) == -1)
+		{
+			free_dlist(h);
+			exit(EXIT_FAILURE);
+		}
 	}
-//	}
 }
 /**
  * pop - removes node at end of dlinkedlist
