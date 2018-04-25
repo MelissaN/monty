@@ -1,79 +1,41 @@
 #include "monty.h"
 /**
  * push - adds node to the end of dlinkedlist
- * @h: node at the top of stack
- * @n: node number
+ * @h: head of linked list (node at the bottom of stack)
+ * @line_number: bytecode line number
  */
-void push(stack_t **h, unsigned int n)
+void push(stack_t **h, unsigned int line_number)
 {
-	stack_t *new, *last;
-
-	if (!head)
-		return (NULL);
-
-	/* malloc and set new node data */
-	new = malloc(sizeof(struct stack_s));
-	if (!new)
-		return (NULL);
-	new->n = n;
-
-	/* account for empty linked list */
-	if (*head == NULL)
+	if (!h)
+		return;
+	if (/*int is not an integer or there's no argument to push*/)
 	{
-		*head = new;
-		new->next = NULL;
-		new->prev = NULL;
-		return (new);
+		printf("L%u: usage: push integer\n", line_number);
+		free_dlist(h);
+		exit(EXIT_FAILURE);
 	}
-
-	/* traverse to last node and insert */
-	last = *head;
-	while (last->next != NULL)
-		last = last->next;
-	new->next = NULL;
-	new->prev = last;
-	last->next = new;
-
-	return (new);
+	else
+	{
+		if (add_end_node(h, atoi(/*int token*/)) == -1)
+		{
+			free_dlist(h);
+			exit(EXIT_FAILURE);
+		}
+	}
 }
 /**
  * pop - removes node at end of dlinkedlist
- * @h: node at the top of stack
- * @n: node number
+ * @h: head of linked list (node at the bottom of stack)
+ * @line_number: bytecode line number
  */
-void pop(stack_t **h, unsigned int n):
+void pop(stack_t **h, unsigned int line_number):
 {
-	stack_t *del = NULL;
-
-	/* do nothing if nothing to delete */
-	if (head == NULL || *head == NULL)
-		return (-1);
-
-	del = *head;
-
-	/* delete first node */
-	if (index == 0)
+	if (h == NULL || *h == NULL)
 	{
-		*head = (*head)->next;
-		free(del);
-		if (*head != NULL)
-			(*head)->prev = NULL;
-		return (1);
+		printf("L%u: can't pop an empty stack\n", line_number);
+		free_dlist(h);
+		exit(EXIT_FAILURE);
 	}
-
-	/* delete nth node as long as within range of list */
-	while ((index != 0) && (del->next != NULL))
-	{
-		index -= 1;
-		del = del->next;
-	}
-	if (index == 0)
-	{
-		del->prev->next = del->next;
-		if (del->next != NULL)
-			del->next->prev = del->prev;
-		free(del);
-		return (1);
-	}
-	return (-1);
+	else
+		delete_end_node(h);
 }
