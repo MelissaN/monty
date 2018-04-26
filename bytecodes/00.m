@@ -1,4 +1,4 @@
 push 1
-push hello
+nop
 push 3
 pall

@@ -9,6 +9,8 @@ void pall(stack_t **h, unsigned int line_number)
 	if (!h || !*h)
 		return;
 
+	(void) line_number;
+
 	/* traverse to top of stack */
 	while ((*h)->next != NULL)
 		*h = (*h)->next;
