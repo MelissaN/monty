@@ -25,11 +25,11 @@ void swap(stack_t **h, unsigned int line_number)
 	tail->next = tmp;
 }
 /**
- * add - adds the top two elements in stack
+ * _add - adds the top two elements in stack
  * @h: top node
  * @line_number: node number
  */
-void add(stack_t **h, unsigned int line_number)
+void _add(stack_t **h, unsigned int line_number)
 {
 	stack_t *tail;
 
@@ -44,5 +44,4 @@ void add(stack_t **h, unsigned int line_number)
 	tail->n += tail->prev->n;
 	tail->prev = tail->prev->prev;
 	tail->prev->next = tail;
-       
 }
