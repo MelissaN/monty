@@ -7,9 +7,9 @@
 
 int main(int argc, char *argv[])
 {
-	int fd, i, ispush = 0;
-	unsigned int line = 1;
-	ssize_t n_read, n_wrote;
+	int fd, i, ispush = 0, done = 0;
+	unsigned int line = 1, line_done;
+	ssize_t n_read;
 	char *buffer, *token;
 	stack_t *h = NULL;
 
@@ -37,8 +37,10 @@ int main(int argc, char *argv[])
 	token = strtok(buffer, "\n\t\a\r ;:");
 	while (token != NULL)
 	{
-
-		printf("tok is %s\n", token);
+		if (done == 1 && line_done == line)
+			continue;
+		else
+			done = 0;
 		if (ispush == 1)
 		{
 			push(&h, line, token);
@@ -57,7 +59,10 @@ int main(int argc, char *argv[])
 		else
 		{
 		        if (get_op_func(token) != 0)
+			{
 				get_op_func(token)(&h, line);
+				done = 1; line_done = line;
+			}
 			else
 			{
  				free_dlist(&h);
@@ -69,7 +74,7 @@ int main(int argc, char *argv[])
 		token = strtok(NULL, "\n\t\a\r ;:");
 		i++;
 	}
-	free_dlist(&h);
+	free_dlist(&h); free(buffer);
 	close(fd);
 	return (0);
 }
