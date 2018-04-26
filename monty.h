@@ -46,7 +46,13 @@ void pint(stack_t **h, unsigned int line_number);
 void pall(stack_t **h, unsigned int line_number);
 void swap(stack_t **h, unsigned int line_number);
 void nop(stack_t **h, unsigned int line_number);
-void add(stack_t **h, unsigned int line_number);
+
+/* calculator prototypes */
+void _add(stack_t **h, unsigned int line_number);
+void _sub(stack_t **h, unsigned int line_number);
+void _mul(stack_t **h, unsigned int line_number);
+void _div(stack_t **h, unsigned int line_number);
+void _mod(stack_t **h, unsigned int line_number);
 
 /* doubly linked list related prototypes */
 int add_end_node(stack_t **h, int n);
