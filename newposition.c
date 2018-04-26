@@ -6,7 +6,6 @@
  */
 void swap(stack_t **h, unsigned int line_number)
 {
-	stack_t *tail;
 	stack_t *tmp = NULL;
 
 	if (*h == NULL || (*h)->next == NULL)
@@ -14,15 +13,12 @@ void swap(stack_t **h, unsigned int line_number)
 		printf("L%u: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tail = *h;
-	while (tail->next != NULL)
-		tail = tail->next;
-	tmp = tail->prev;
-	tail->prev = tail->prev->prev;
-	tail->prev->next = tmp->next;
-	tmp->prev = tail;
-	tmp->next = NULL;
-	tail->next = tmp;
+	tmp = (*h)->next;
+	(*h)->next = tmp->next;
+	(*h)->next->prev = *h;
+	tmp->prev = NULL;
+	tmp->next = *h;
+	(*h) = tmp;
 }
 /**
  * _add - adds the top two elements in stack
@@ -31,17 +27,13 @@ void swap(stack_t **h, unsigned int line_number)
  */
 void _add(stack_t **h, unsigned int line_number)
 {
-	stack_t *tail;
-
 	if (*h == NULL || (*h)->next == NULL)
 	{
 		printf("L%u: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tail = *h;
-	while (tail->next !=NULL)
-		tail = tail->next;
-	tail->n += tail->prev->n;
-	tail->prev = tail->prev->prev;
-	tail->prev->next = tail;
+	(*h)->next->n += (*h)->n;
+	(*h) = (*h)->next;
+	free((*h)->prev);
+	(*h)->prev = NULL;
 }

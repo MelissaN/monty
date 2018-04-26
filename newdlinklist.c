@@ -1,13 +1,13 @@
 #include "monty.h"
 /**
- * add_end_node - add node to end of doubly linked list
+ * add_end_node - add node to front of doubly linked list
  * @h: pointer to head of list
  * @n: node data
  * Return: 0 if success, -1 if failed
  */
 int add_end_node(stack_t **h, int n)
 {
-	stack_t *new, *last;
+	stack_t *new;
 
 	if (!h)
 		return (-1);
@@ -28,14 +28,11 @@ int add_end_node(stack_t **h, int n)
 		new->next = NULL;
 		new->prev = NULL;
 	}
-	else /* traverse to last node and insert */
+	else /* insert to front */
 	{
-		last = *h;
-		while (last->next != NULL)
-			last = last->next;
-		new->next = NULL;
-		new->prev = last;
-		last->next = new;
+		new->next = *h;
+		(*h)->prev = new;
+		*h = new;
 	}
 	return (0);
 }
@@ -54,11 +51,10 @@ void delete_end_node(stack_t **h)
 		*h = NULL;
 		free(del);
 	}
-	else /* else traverse to end, delete, and link correctly */
+	else /* else delete front, and link correctly */
 	{
-		while (del->next != NULL)
-			del = del->next;
-		del->prev->next = NULL;
+		*h = (*h)->next;
+		(*h)->prev = NULL;
 		free(del);
 	}
 }

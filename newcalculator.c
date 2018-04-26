@@ -1,93 +1,77 @@
 #include "monty.h"
 /**
- * sub
- *
- *
+ * _sub - subtract second node from top node
+ * @h: top of list
+ * @line_number: line of command
  */
 void _sub(stack_t **h, unsigned int line_number)
 {
-	stack_t *tail;
-
 	if (*h == NULL || (*h)->next == NULL)
 	{
 		printf("L%u: can't sub, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tail = *h;
-	while (tail->next != NULL)
-		tail = tail->next;
-	tail->n -= tail->prev->n;
-	tail->prev = tail->prev->prev;
-	tail->prev->next = tail;
+	(*h)->next->n -= (*h)->n;
+	(*h) = (*h)->next;
+	free((*h)->prev);
+	(*h)->prev = NULL;
 }
 /**
- *
- *
- *
+ * _mul - multiply second node and top node
+ * @h: top of list
+ * @line_number: line of command
  */
 void _mul(stack_t **h, unsigned int line_number)
 {
-	stack_t *tail;
-
 	if (*h == NULL || (*h)->next == NULL)
 	{
 		printf("L%u: can't mul, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tail = *h;
-	while (tail->next != NULL)
-		tail = tail->next;
-	tail->n *= tail->prev->n;
-	tail->prev = tail->prev->prev;
-	tail->prev->next = tail;
+	(*h)->next->n *= (*h)->n;
+	(*h) = (*h)->next;
+	free((*h)->prev);
+	(*h)->prev = NULL;
 }
 /**
- *
- *
- *
+ * _div - divide second node from top node
+ * @h: top of list
+ * @line_number: line of command
  */
 void _div(stack_t **h, unsigned int line_number)
 {
-	stack_t *tail;
-
 	if (*h == NULL || (*h)->next == NULL)
 	{
 		printf("L%u: can't div, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tail = *h;
-	while (tail->next != NULL)
-		tail = tail->next;
-	if (tail->n == 0 || tail->prev->n == 0)
+	if ((*h)->n == 0 || (*h)->next->n == 0)
 	{
 		printf("L%u: division by zero\n", line_number);
 	}
-	tail->n /= tail->prev->n;
-	tail->prev = tail->prev->prev;
-	tail->prev->next = tail;
+	(*h)->next->n /= (*h)->n;
+	(*h) = (*h)->next;
+	free((*h)->prev);
+	(*h)->prev = NULL;
 }
 /**
- *
- *
- *
+ * _mod - mod second node from top node
+ * @h: top of list
+ * @line_number: line of command
  */
 void _mod(stack_t **h, unsigned int line_number)
 {
-	stack_t *tail;
-
 	if (h == NULL || *h == NULL)
 	{
 		printf("L%u: can't mod, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tail = *h;
-	if (tail->n / tail->prev->n == 0)
+	if ((*h)->n == 0 || (*h)->next->n == 0)
 	{
 		printf("L%u: division by zero\n", line_number);
 	}
-	while (tail->next != NULL)
-		tail = tail->next;
-	tail->n %= tail->prev->n;
-	tail->prev = tail->prev->prev;
-	tail->prev->next = tail;
+	(*h)->next->n %= (*h)->n;
+	(*h) = (*h)->next;
+	free((*h)->prev);
+	(*h)->prev = NULL;
 }

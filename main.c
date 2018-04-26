@@ -5,6 +5,12 @@
 #include <fcntl.h>
 #include <string.h>
 
+/**
+ * main - entry into interpreter
+ * @argc: argc counter
+ * @argv: arguments
+ * Return: 0 on success
+ */
 int main(int argc, char *argv[])
 {
 	int fd, ispush = 0;
@@ -31,7 +37,7 @@ int main(int argc, char *argv[])
 	if (n_read == -1)
 	{
 		free(buffer);
-		close (fd);
+		close(fd);
 		exit(EXIT_FAILURE);
 	}
 	token = strtok(buffer, "\n\t\a\r ;:");
@@ -53,16 +59,16 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-		        if (get_op_func(token) != 0)
+			if (get_op_func(token) != 0)
 			{
 				get_op_func(token)(&h, line);
 			}
 			else
 			{
- 				free_dlist(&h);
+				free_dlist(&h);
 				printf("L%d: unknown instruction %s\n", line, token);
- 				exit(EXIT_FAILURE);
- 			}
+				exit(EXIT_FAILURE);
+			}
 		}
 		line++;
 		token = strtok(NULL, "\n\t\a\r ;:");

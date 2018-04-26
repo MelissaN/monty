@@ -1,6 +1,6 @@
 push 1
+push 20
 push 2
-push 40
 pall
-div
+swap
 pall
