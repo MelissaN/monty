@@ -32,6 +32,52 @@ void pint(stack_t **h, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*h)->n);
+
+}
+/**
+ * pchar - print top node in stack as ascii letter
+ * @h: head of list
+ * @line_number: bytecode line number
+ */
+void pchar(stack_t **h, unsigned int line_number)
+{
+	if (!h || !*h)
+	{
+		printf("L%u: can't pchar, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	if (((*h)->n) >= 0 && ((*h)->n) <= 127)
+		printf("%c\n", (*h)->n);
+	else
+	{
+		printf("L%u: can't pchar, value out of range\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+}
+/**
+ * pstr - print top nodes in stack as ascii letter
+ * and stop only if end of stack, node is 0, or not in ascii table
+ * @h: head of list
+ * @line_number: bytecode line number
+ */
+void pstr(stack_t **h, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if (!h || !*h)
+	{
+		printf("L%u: can't pchar, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	tmp = *h;
+	while ((tmp != NULL) && (tmp->n != 0) &&
+	       (tmp->n >= 0) && (tmp->n <= 127))
+	{
+		printf("%c", (tmp)->n);
+		tmp = tmp->next;
+	}
+	printf("\n");
 }
 /**
  * nop - do nothing

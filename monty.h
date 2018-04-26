@@ -46,6 +46,8 @@ void pint(stack_t **h, unsigned int line_number);
 void pall(stack_t **h, unsigned int line_number);
 void swap(stack_t **h, unsigned int line_number);
 void nop(stack_t **h, unsigned int line_number);
+void pchar(stack_t **h, unsigned int line_number);
+void pstr(stack_t **h, unsigned int line_number);
 
 /* calculator prototypes */
 void _add(stack_t **h, unsigned int line_number);
@@ -58,7 +60,5 @@ void _mod(stack_t **h, unsigned int line_number);
 int add_end_node(stack_t **h, int n);
 void delete_end_node(stack_t **h);
 void free_dlist(stack_t **h);
-
-char *token_line(stack_t **h, int n);
 
 #endif
