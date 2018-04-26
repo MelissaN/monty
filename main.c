@@ -10,8 +10,7 @@ int main(int argc, char *argv[])
 	int fd, i, ispush = 0;
 	unsigned int line = 1;
 	ssize_t n_read, n_wrote;
-	char *buffer;
-	char *token;
+	char *buffer, *token;
 	stack_t *h = NULL;
 
 	if (argc != 2)
@@ -38,6 +37,8 @@ int main(int argc, char *argv[])
 	token = strtok(buffer, "\n\t\a\r ;:");
 	while (token != NULL)
 	{
+
+		printf("tok is %s\n", token);
 		if (ispush == 1)
 		{
 			push(&h, line, token);
@@ -53,9 +54,22 @@ int main(int argc, char *argv[])
 			i++;
 			continue;
 		}
+		else
+		{
+		        if (get_op_func(token) != 0)
+				get_op_func(token)(&h, line);
+			else
+			{
+ 				free_dlist(&h);
+				printf("L%d: unknown instruction %s\n", line, token);
+ 				exit(EXIT_FAILURE);
+ 			}
+		}
 		line++;
 		token = strtok(NULL, "\n\t\a\r ;:");
 		i++;
 	}
+	free_dlist(&h);
 	close(fd);
+	return (0);
 }

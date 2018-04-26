@@ -11,17 +11,19 @@ void (*get_op_func(char *token1))(stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"pall", pall},
 		{"pint", pint},
-		{"swap", swap},
-		{"add", add},
+//		{"swap", swap},
+//		{"add", add},
 		{"nop", nop},
 		{NULL, NULL}
 	};
 	int i = 0;
 
-	while (instruction_s[i] != NULL)
+	while (instruction_s[i].f != NULL)
 	{
-		if (*token1 == instruction_s[i].opcode)
+		if (strcmp(token1, instruction_s[i].opcode) == 0)
+		{
 			return (instruction_s[i].f);
+		}
 		i++;
 	}
 	return (NULL);
