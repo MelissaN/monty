@@ -30,11 +30,11 @@ void swap(stack_t **h, unsigned int line_number)
 	(*h) = tmp;
 }
 /**
- * rot1 - rotate so top of stack becomes last one, second becomes first one
+ * rotl - rotate so top of stack becomes last one, second becomes first one
  * @h: node to be rotated
  * @line_number: node number
  */
-void rot1(stack_t **h, unsigned int line_number)
+void rotl(stack_t **h, unsigned int line_number)
 {
 	stack_t *tmp;
 
