@@ -1,9 +1,4 @@
 #include "monty.h"
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
 
 /**
  * main - entry into interpreter
@@ -13,10 +8,10 @@
  */
 int main(int argc, char *argv[])
 {
-	int fd, ispush = 0;
+	FILE *fp;
 	unsigned int line = 1;
-	ssize_t n_read;
-	char *buffer, *token;
+	size_t len = 0;
+	char *token, *args = NULL;
 	stack_t *h = NULL;
 
 	if (argc != 2)
@@ -24,56 +19,39 @@ int main(int argc, char *argv[])
 		printf("USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-	{
-		printf("Error: Can't open file %s\n", argv[1]);
+	fp = fopen(argv[1], "r");
+	if (fp == NULL)
 		exit(EXIT_FAILURE);
-	}
-	buffer = malloc(sizeof(char) * 10000);
-	if (!buffer)
-		return (0);
-	n_read = read(fd, buffer, 10000);
-	if (n_read == -1)
+	while (getline(&args, &len, fp) != -1)
 	{
-		free(buffer);
-		close(fd);
-		exit(EXIT_FAILURE);
-	}
-	token = strtok(buffer, "\n\t\a\r ;:");
-	while (token != NULL)
-	{
-		if (ispush == 1)
+		if (*args == '\n')
 		{
-			push(&h, line, token);
-			ispush = 0;
-			token = strtok(NULL, "\n\t\a\r ;:");
 			line++;
 			continue;
 		}
-		else if (strcmp(token, "push") == 0)
+		token = strtok(args, "\n\t\a\r ;:");
+		if (token)
 		{
-			ispush = 1;
-			token = strtok(NULL, "\n\t\a\r ;:");
-			continue;
-		}
-		else
-		{
-			if (get_op_func(token) != 0)
+			if (strcmp(token, "push") == 0)
 			{
-				get_op_func(token)(&h, line);
+				token = strtok(NULL, "\n\t\a\r ;:");
+				push(&h, line, token);
+				continue;
 			}
 			else
 			{
-				free_dlist(&h);
-				printf("L%d: unknown instruction %s\n", line, token);
-				exit(EXIT_FAILURE);
+				if (get_op_func(token) != 0)
+					get_op_func(token)(&h, line);
+				else
+				{
+					free_dlist(&h);
+					printf("L%d: unknown instruction %s\n", line, token);
+					exit(EXIT_FAILURE);
+				}
 			}
 		}
 		line++;
-		token = strtok(NULL, "\n\t\a\r ;:");
 	}
-	free_dlist(&h); free(buffer);
-	close(fd);
+	free_dlist(&h);
 	return (0);
 }
