@@ -48,6 +48,8 @@ void swap(stack_t **h, unsigned int line_number);
 void nop(stack_t **h, unsigned int line_number);
 void pchar(stack_t **h, unsigned int line_number);
 void pstr(stack_t **h, unsigned int line_number);
+void rot1(stack_t **h, unsigned int line_number);
+void rotr(stack_t **h, unsigned int line_number);
 
 /* calculator prototypes */
 void _add(stack_t **h, unsigned int line_number);
